@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-	$response = Http::withToken(config('services.openai.secret'))->post('https://api.openai.com/v1/chat/completions', [
+	$poem = Http::withToken(config('services.openai.secret'))->post('https://api.openai.com/v1/chat/completions', [
 		"model" => "gpt-3.5-turbo",
 		"messages" => [
 			[
@@ -27,7 +27,7 @@ Route::get('/', function () {
 				"content" => "Compose a poem that explains the concept of trcursion in programming"
 			]
 		]
-	])->json();
+	])->json('choices.0.message.content');
 
-	dd($response['choices'][0]['message']['content']);
+	return $poem;
 });
