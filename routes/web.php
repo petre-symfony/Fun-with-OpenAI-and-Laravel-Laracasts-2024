@@ -29,5 +29,5 @@ Route::get('/', function () {
 		]
 	])->json();
 
-	dd($response);
+	dd($response['choices'][0]['message']['content']);
 });
