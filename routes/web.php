@@ -1,5 +1,6 @@
 <?php
 
+use App\AI\Chat;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 
@@ -15,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+	/**
 	$messages = [
 		[
 			"role" => "system",
@@ -25,6 +27,9 @@ Route::get('/', function () {
 			"content" => "Compose a poem that explains the concept of trcursion in programming"
 		]
 	];
+	*/
+	$chat = new Chat();
+
 	$poem = Http::withToken(config('services.openai.secret'))->post('https://api.openai.com/v1/chat/completions', [
 		"model" => "gpt-3.5-turbo",
 		"messages" => $messages
@@ -33,21 +38,6 @@ Route::get('/', function () {
 	$messages[] = [
 		"role" => "assistant",
 		"content" => $poem
-	];
-
-	$messages[] = [
-		"role" => "user",
-		"content" => "Ok but can you make it much, much mopre silly"
-	];
-
-	$sillyPoem = Http::withToken(config('services.openai.secret'))->post('https://api.openai.com/v1/chat/completions', [
-		"model" => "gpt-3.5-turbo",
-		"messages" => $messages
-	])->json('choices.0.message.content');
-
-	$messages[] = [
-		"role" => "assistant",
-		"content" => $sillyPoem
 	];
 
 	return view('welcome', [
