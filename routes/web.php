@@ -29,5 +29,7 @@ Route::get('/', function () {
 		]
 	])->json('choices.0.message.content');
 
-	return $poem;
+	return view('welcome', [
+		'poem' => $poem
+	]);
 });
