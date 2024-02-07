@@ -35,9 +35,22 @@ Route::get('/', function () {
 		"content" => $poem
 	];
 
-	dd($messages);
-	
+	$messages[] = [
+		"role" => "user",
+		"content" => "Ok but can you make it much, much mopre silly"
+	];
+
+	$sillyPoem = Http::withToken(config('services.openai.secret'))->post('https://api.openai.com/v1/chat/completions', [
+		"model" => "gpt-3.5-turbo",
+		"messages" => $messages
+	])->json('choices.0.message.content');
+
+	$messages[] = [
+		"role" => "assistant",
+		"content" => $sillyPoem
+	];
+
 	return view('welcome', [
-		'poem' => $poem
+		'poem' => $sillyPoem
 	]);
 });
