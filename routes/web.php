@@ -16,20 +16,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-	/**
-	$messages = [
-		[
-			"role" => "system",
-			"content" => "You are a poetic assistant, skilled in explaining complex concepts with creative flair"
-		]
-	];
-	*/
-	$chat = new Chat();
-
-	$poem = $chat
+	$poem = (new Chat)
+		->systemMessage(
+			'You are a poetic assistant, skilled in explaining complex concepts with creative flair'
+		)
 		->send(
-			"Compose a poem that explains the concept of trcursion in programming",
-			"system message goes here"
+			'Compose a poem that explains the concept of trcursion in programming'
 		);
 
 	return view('welcome', [
