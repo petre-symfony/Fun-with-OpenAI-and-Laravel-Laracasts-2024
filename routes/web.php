@@ -26,7 +26,11 @@ Route::get('/', function () {
 	*/
 	$chat = new Chat();
 
-	$poem = $chat->send("Compose a poem that explains the concept of trcursion in programming");
+	$poem = $chat
+		->send(
+			"Compose a poem that explains the concept of trcursion in programming",
+			"system message goes here"
+		);
 
 	return view('welcome', [
 		'poem' => $poem
