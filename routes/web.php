@@ -21,26 +21,14 @@ Route::get('/', function () {
 		[
 			"role" => "system",
 			"content" => "You are a poetic assistant, skilled in explaining complex concepts with creative flair"
-		],
-		[
-			"role" => "user",
-			"content" => "Compose a poem that explains the concept of trcursion in programming"
 		]
 	];
 	*/
 	$chat = new Chat();
 
-	$poem = Http::withToken(config('services.openai.secret'))->post('https://api.openai.com/v1/chat/completions', [
-		"model" => "gpt-3.5-turbo",
-		"messages" => $messages
-	])->json('choices.0.message.content');
-
-	$messages[] = [
-		"role" => "assistant",
-		"content" => $poem
-	];
+	$poem = $chat->send("Compose a poem that explains the concept of trcursion in programming");
 
 	return view('welcome', [
-		'poem' => $sillyPoem
+		'poem' => $poem
 	]);
 });
