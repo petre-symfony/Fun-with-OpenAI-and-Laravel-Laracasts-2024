@@ -31,8 +31,10 @@ class ChatCommand extends Command {
 			$chat->systemMessage($this->option('system'));
 		}
 
-		$question = text('What is your question for AI?');
-		dd($question);
+		$question = text(
+			label: 'What is your question for AI?',
+			required: true
+		);
 
 		$response = spin(fn() => $chat->send($question), 'Sending request');
 
