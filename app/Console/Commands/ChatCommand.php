@@ -30,5 +30,13 @@ class ChatCommand extends Command {
 		$response = $chat->send($question);
 
 		$this->info($response);
+
+		if ($this->ask('Do you want to respond?')){
+			$question = $this->ask('What is your response?');
+
+			$response = $chat->send($question);
+
+			$this->info($response);
+		}
 	}
 }
