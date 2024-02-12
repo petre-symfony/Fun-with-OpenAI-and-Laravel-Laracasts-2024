@@ -39,5 +39,8 @@ class Chat {
 
 		return $this;
 	}
+
+	public function reply(string $message) {
+		return $this->send($message);
+	}
 }
-//$chat->send('Tell me a bad time story')
