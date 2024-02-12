@@ -1,7 +1,6 @@
 <?php
 
 use App\AI\Chat;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,7 +15,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-	$poem = (new Chat)
+	$chat = new Chat();
+
+	$poem = $chat
 		->systemMessage(
 			'You are a poetic assistant, skilled in explaining complex concepts with creative flair'
 		)

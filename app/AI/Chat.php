@@ -30,5 +30,14 @@ class Chat {
 
 		return $response;
 	}
+
+	public function systemMessage(string $message): static {
+		$this->messages[] = [
+			'role' => 'system',
+			'content' => $message
+		];
+
+		return $this;
+	}
 }
 //$chat->send('Tell me a bad time story')
