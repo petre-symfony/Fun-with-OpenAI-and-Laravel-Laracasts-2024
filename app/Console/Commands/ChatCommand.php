@@ -4,7 +4,7 @@ namespace App\Console\Commands;
 
 use App\AI\Chat;
 use Illuminate\Console\Command;
-use function Laravel\Prompts\{text, info};
+use function Laravel\Prompts\{text, info, spin};
 
 class ChatCommand extends Command {
 	/**
@@ -29,7 +29,7 @@ class ChatCommand extends Command {
 
 		$chat = new Chat();
 
-		$response = $chat->send($question);
+		$response = spin(fn() => $chat->send($question), 'Sending request');
 
 		info($response);
 
