@@ -12,7 +12,7 @@ class ChatCommand extends Command {
 	 *
 	 * @var string
 	 */
-	protected $signature = 'chat';
+	protected $signature = 'chat {--system=}';
 
 	/**
 	 * The console command description.
@@ -25,9 +25,14 @@ class ChatCommand extends Command {
 	 * Execute the console command.
 	 */
 	public function handle() {
-		$question = text('What is your question for AI?');
-
 		$chat = new Chat();
+
+		if ($this->option('system')) {
+			$chat->systemMessage($this->option('system'));
+		}
+
+		$question = text('What is your question for AI?');
+		dd($question);
 
 		$response = spin(fn() => $chat->send($question), 'Sending request');
 
