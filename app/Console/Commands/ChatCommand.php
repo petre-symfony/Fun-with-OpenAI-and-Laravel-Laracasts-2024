@@ -4,7 +4,7 @@ namespace App\Console\Commands;
 
 use App\AI\Chat;
 use Illuminate\Console\Command;
-use function Laravel\Prompts\{text, info, spin};
+use function Laravel\Prompts\{outro, text, info, spin};
 
 class ChatCommand extends Command {
 	/**
@@ -47,6 +47,6 @@ class ChatCommand extends Command {
 			info($response);
 		}
 
-		info('Conversation over');
+		outro('Conversation over');
 	}
 }
