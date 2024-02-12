@@ -33,8 +33,7 @@ class ChatCommand extends Command {
 
 		info($response);
 
-		while (text('Do you want to respond?')){
-			$question = text('What is your reply?');
+		while ($question = text('Do you want to respond?')){
 
 			$response = $chat->send($question);
 
