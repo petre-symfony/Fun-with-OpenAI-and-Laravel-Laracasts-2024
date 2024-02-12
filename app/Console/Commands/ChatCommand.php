@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\AI\Chat;
 use Illuminate\Console\Command;
+use function Laravel\Prompts\{text, info};
 
 class ChatCommand extends Command {
 	/**
@@ -24,22 +25,22 @@ class ChatCommand extends Command {
 	 * Execute the console command.
 	 */
 	public function handle() {
-		$question = $this->ask('What is your question for AI?');
+		$question = text('What is your question for AI?');
 
 		$chat = new Chat();
 
 		$response = $chat->send($question);
 
-		$this->info($response);
+		info($response);
 
-		while ($this->ask('Do you want to respond?')){
-			$question = $this->ask('What is your reply?');
+		while (text('Do you want to respond?')){
+			$question = text('What is your reply?');
 
 			$response = $chat->send($question);
 
-			$this->info($response);
+			info($response);
 		}
 
-		$this->info('Conversation over');
+		info('Conversation over');
 	}
 }
