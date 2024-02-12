@@ -39,5 +39,7 @@ class ChatCommand extends Command {
 
 			$this->info($response);
 		}
+
+		$this->info('Conversation over');
 	}
 }
