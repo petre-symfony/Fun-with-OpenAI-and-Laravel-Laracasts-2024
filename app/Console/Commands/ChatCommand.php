@@ -10,19 +10,20 @@ class ChatCommand extends Command {
 	 *
 	 * @var string
 	 */
-	protected $signature = 'app:chat';
+	protected $signature = 'chat';
 
 	/**
 	 * The console command description.
 	 *
 	 * @var string
 	 */
-	protected $description = 'Command description';
+	protected $description = 'Start a chat with OpenAI';
 
 	/**
 	 * Execute the console command.
 	 */
 	public function handle() {
-		//
+		$question = $this->ask('What is your question for AI?');
+		dd($question);
 	}
 }
