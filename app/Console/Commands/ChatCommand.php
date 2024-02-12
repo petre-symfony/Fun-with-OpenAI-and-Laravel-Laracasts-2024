@@ -24,6 +24,11 @@ class ChatCommand extends Command {
 	 */
 	public function handle() {
 		$question = $this->ask('What is your question for AI?');
-		dd($question);
+
+		$chat = new Chat();
+
+		$response = $chat->send($question);
+
+		$this->info($response);
 	}
 }
