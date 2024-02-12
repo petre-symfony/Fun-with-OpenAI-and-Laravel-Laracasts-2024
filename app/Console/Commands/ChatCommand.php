@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\AI\Chat;
 use Illuminate\Console\Command;
 
 class ChatCommand extends Command {
@@ -32,9 +33,11 @@ class ChatCommand extends Command {
 		$this->info($response);
 
 		if ($this->ask('Do you want to respond?')){
-			$question = $this->ask('What is your response?');
+			$question = $this->ask('What is your reply?');
 
 			$response = $chat->send($question);
+
+			dd($chat->messages());
 
 			$this->info($response);
 		}
