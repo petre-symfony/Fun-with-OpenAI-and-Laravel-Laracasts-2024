@@ -32,12 +32,10 @@ class ChatCommand extends Command {
 
 		$this->info($response);
 
-		if ($this->ask('Do you want to respond?')){
+		while ($this->ask('Do you want to respond?')){
 			$question = $this->ask('What is your reply?');
 
 			$response = $chat->send($question);
-
-			dd($chat->messages());
 
 			$this->info($response);
 		}
