@@ -11,7 +11,7 @@ class Chat {
 		return $this->messages;
 	}
 
-	public function send(string $message): string {
+	public function send(string $message): ?string {
 		$this->messages[] = [
 			'role' => 'user',
 			'content' => $message
@@ -23,10 +23,12 @@ class Chat {
 				"messages" => $this->messages
 			])->json('choices.0.message.content');
 
-		$this->messages[] = [
-			'role' => 'assistant',
-			'content' => $response
-		];
+		if ($response) {
+			$this->messages[] = [
+				'role' => 'assistant',
+				'content' => $response
+			];
+		}
 
 		return $response;
 	}
@@ -40,7 +42,7 @@ class Chat {
 		return $this;
 	}
 
-	public function reply(string $message) {
+	public function reply(string $message): ?string {
 		return $this->send($message);
 	}
 }
