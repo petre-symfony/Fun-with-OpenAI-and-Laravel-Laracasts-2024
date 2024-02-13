@@ -10,14 +10,16 @@
 </head>
 <body class="h-full grid place-items-center">
 <form action="/roast" method="POST" class="w-full lg:max-w-md lg:mx-auto">
-  <input type="text" placeholder="What do you want us to roast?" required class="border p-2 rounded">
+  <div class="flex">
+    <input type="text" placeholder="What do you want us to roast?" required class="border p-2 rounded">
 
-  <button
-      type="submit"
-      class="rounded p-2 bg-gray-200 hover:bg-blue-500 hover:text-white"
-  >
-    Roast
-  </button>
+    <button
+        type="submit"
+        class="rounded p-2 bg-gray-200 hover:bg-blue-500 hover:text-white"
+    >
+      Roast
+    </button>
+  </div>
 </form>
 </body>
 </html>
