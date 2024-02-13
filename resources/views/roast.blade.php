@@ -15,7 +15,7 @@
           class="giphy-embed" allowFullScreen></iframe>
 
       <a
-          href="{{ asset('file') }}"
+          href="{{ asset(session('file')) }}"
           download
           class="block w-full text-center bg-gray-200 hover:bg-blue-500 hover:text-white mt-3"
       >
