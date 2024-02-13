@@ -9,7 +9,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="h-full grid place-items-center">
-<form action="/roast" method="POST">
+<form action="/roast" method="POST" class="w-full">
   <input type="text" placeholder="What do you want us to roast?" required class="border p-2 rounded">
 
   <button
