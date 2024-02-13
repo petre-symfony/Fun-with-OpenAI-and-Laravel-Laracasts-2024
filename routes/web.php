@@ -13,6 +13,13 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::get('/', function () {
+	return view('roast');
+});
+
+Route::post('/roast', function () {
+	//shows a roast form
+});
 
 Route::get('/', function () {
 	$chat = new Chat();
@@ -27,7 +34,7 @@ Route::get('/', function () {
 
 	$sillyPoem = $chat->reply('Cool, can you make it much, much sillier');
 
-	return view('welcome', [
+	return view('roast', [
 		'poem' => $sillyPoem
 	]);
 });

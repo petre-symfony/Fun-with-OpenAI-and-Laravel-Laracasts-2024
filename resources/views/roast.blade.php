@@ -9,8 +9,15 @@
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="h-full grid place-items-center">
-  <div class="text-xs font-sans">
-    {!! nl2br($poem) !!}
-  </div>
+<form action="/roast" method="POST">
+  <input type="text" placeholder="What do you want us to roast?" required class="border p-2 rounded">
+
+  <button
+      type="submit"
+      class="rounded p-2 bg-gray-200 hover:bg-blue-500 hover:text-white"
+  >
+    Roast
+  </button>
+</form>
 </body>
 </html>
