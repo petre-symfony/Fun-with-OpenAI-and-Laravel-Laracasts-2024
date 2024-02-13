@@ -23,12 +23,17 @@ Route::post('/roast', function () {
 	]]);
 
 	$prompt = "Please roast {$attributes['topic']} in a sarcastic ton";
-	
-	$chat = new Chat();
 
-	$response = $chat->send($prompt);
+	$mp3 = (new Chat())->send(
+		message: $prompt,
+		speech: true
+	);
 
-	dd($response);
+	$file = "/roasts/" . md5($mp3) . '.mp3';
+
+	file_put_contents(public_path( $file), $mp3);
+
+	dd('done');
 });
 
 Route::get('/', function () {
