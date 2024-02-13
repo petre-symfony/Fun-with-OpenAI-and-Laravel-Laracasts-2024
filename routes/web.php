@@ -14,7 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::get('/', function () {
-	session()->forget('file');
 
 	return view('roast');
 });
@@ -24,16 +23,12 @@ Route::post('/roast', function () {
 		'required', 'string', 'min:2', 'max:50'
 	]]);
 
-	$prompt = "Please roast {$attributes['topic']} in a sarcastic ton";
-
 	$mp3 = (new Chat())->send(
-		message: $prompt,
+		message: "Please roast {$attributes['topic']} in a sarcastic ton",
 		speech: true
 	);
 
-	$file = "/roasts/" . md5($mp3) . '.mp3';
-
-	file_put_contents(public_path( $file), $mp3);
+	file_put_contents(public_path($file = "/roasts/" . md5($mp3) . '.mp3'), $mp3);
 
 	return redirect('/')->with([
 		'file' => $file,
