@@ -17,7 +17,7 @@
       <a
           href="{{ asset('file') }}"
           download
-          class="block w-full text-center bg-gray-200 hover:bg-blue-500 hover:text-white"
+          class="block w-full text-center bg-gray-200 hover:bg-blue-500 hover:text-white mt-3"
       >
         Download your audio
       </a>
