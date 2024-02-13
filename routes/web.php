@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::get('/', function () {
+	session(['file' => 'asdgkl.mp3']);
+
 	return view('roast');
 });
 
@@ -33,7 +35,10 @@ Route::post('/roast', function () {
 
 	file_put_contents(public_path( $file), $mp3);
 
-	dd('done');
+	return redirect('/')->with([
+		'file' => $file,
+		'flash' => 'Boom , roasted'
+	]);
 });
 
 Route::get('/', function () {
