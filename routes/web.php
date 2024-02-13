@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::get('/', function () {
-	session(['file' => 'asdgkl.mp3']);
+	session()->forget('file');
 
 	return view('roast');
 });
