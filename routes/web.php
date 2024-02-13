@@ -18,7 +18,7 @@ Route::get('/', function () {
 });
 
 Route::post('/roast', function () {
-	//shows a roast form
+	dd(request('topic'));
 });
 
 Route::get('/', function () {

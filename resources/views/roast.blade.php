@@ -11,7 +11,8 @@
 <body class="h-full grid place-items-center">
 <form action="/roast" method="POST" class="w-full lg:max-w-md lg:mx-auto">
   <div class="flex gap-2">
-    <input type="text" placeholder="What do you want us to roast?" required class="border p-2 rounded flex-1">
+    @csrf
+    <input type="text" name="topic" placeholder="What do you want us to roast?" required class="border p-2 rounded flex-1">
 
     <button
         type="submit"
