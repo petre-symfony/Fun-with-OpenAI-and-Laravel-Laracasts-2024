@@ -18,7 +18,17 @@ Route::get('/', function () {
 });
 
 Route::post('/roast', function () {
-	dd(request('topic'));
+	$attributes = request()->validate(['topic' => [
+		'required', 'string', 'min:2', 'max:50'
+	]]);
+
+	$prompt = "Please roast {$attributes['topic']} in a sarcastic ton";
+	
+	$chat = new Chat();
+
+	$response = $chat->send($prompt);
+
+	dd($response);
 });
 
 Route::get('/', function () {
