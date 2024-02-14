@@ -34,8 +34,11 @@
     <div>
       @if (count($messages))
         <div class="space-y-6">
-          @foreach($messages as $message)
-            <div>{{ $message['content'] }}</div>
+          @foreach(array_chunk($messages, 2) as $chunk)
+            <div>
+              <p class="font-bold text-sm mb-1">{{ $chunk[0]['content'] }}</p>
+              <img src="{{ $chunk[1]['content'] }}" alt="" style="max-width: 250px">
+            </div>
           @endforeach
         </div>
       @else
