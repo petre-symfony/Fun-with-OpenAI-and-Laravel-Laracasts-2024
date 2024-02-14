@@ -11,11 +11,17 @@ class Assistant {
 		return $this->messages;
 	}
 
-	public function send(string $message, bool $speech = false): ?string {
+	protected function addMessage(string $message, string $role = 'user'):self {
 		$this->messages[] = [
-			'role' => 'user',
+			'role' => $role,
 			'content' => $message
 		];
+
+		return $this;
+	}
+
+	public function send(string $message, bool $speech = false): ?string {
+		$this->addMessage($message);
 
 		$response =  OpenAI::chat()->create([
 				"model" => "gpt-3.5-turbo",
@@ -23,10 +29,7 @@ class Assistant {
 			])->choices[0]->message->content;
 
 		if ($response) {
-			$this->messages[] = [
-				'role' => 'assistant',
-				'content' => $response
-			];
+			$this->addMessage($response, 'assistant');
 		}
 
 		return $speech ? $this->speech($response) : $response;
@@ -41,10 +44,7 @@ class Assistant {
 	}
 
 	public function systemMessage(string $message): static {
-		$this->messages[] = [
-			'role' => 'system',
-			'content' => $message
-		];
+		$this->addMessage($message, 'system');
 
 		return $this;
 	}
@@ -54,10 +54,7 @@ class Assistant {
 	}
 
 	public function visualize(string $description, array $options = []): string {
-		$this->messages[] = [
-			'role' => 'user',
-			'content' => $description
-		];
+		$this->addMessage($description);
 
 		$options = array_merge([
 			'prompt' => $description,
@@ -66,10 +63,7 @@ class Assistant {
 
 		$url = OpenAI::images()->create($options)->data[0]->url;
 
-		$this->messages[] = [
-			'role' => 'assistant',
-			'content' => $url
-		];
+		$this->addMessage($url, 'assistant');
 
 		return $url;
 	}
