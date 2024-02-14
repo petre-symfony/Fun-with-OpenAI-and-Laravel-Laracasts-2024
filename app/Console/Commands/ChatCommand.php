@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\AI\Chat;
+use App\AI\Assistant;
 use Illuminate\Console\Command;
 use function Laravel\Prompts\{outro, text, info, spin};
 
@@ -25,7 +25,7 @@ class ChatCommand extends Command {
 	 * Execute the console command.
 	 */
 	public function handle() {
-		$chat = new Chat();
+		$chat = new Assistant();
 
 		if ($this->option('system')) {
 			$chat->systemMessage($this->option('system'));

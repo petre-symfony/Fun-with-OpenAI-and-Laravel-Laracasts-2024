@@ -1,6 +1,6 @@
 <?php
 
-use App\AI\Chat;
+use App\AI\Assistant;
 use OpenAI\Laravel\Facades\OpenAI;
 use Illuminate\Support\Facades\Route;
 
@@ -46,7 +46,7 @@ Route::post('/roast', function () {
 		'required', 'string', 'min:2', 'max:50'
 	]]);
 
-	$mp3 = (new Chat())->send(
+	$mp3 = (new Assistant())->send(
 		message: "Please roast {$attributes['topic']} in a sarcastic ton",
 		speech: true
 	);
@@ -60,7 +60,7 @@ Route::post('/roast', function () {
 });
 
 Route::get('/', function () {
-	$chat = new Chat();
+	$chat = new Assistant();
 
 	$poem = $chat
 		->systemMessage(

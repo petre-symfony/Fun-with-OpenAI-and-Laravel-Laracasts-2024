@@ -4,7 +4,7 @@ namespace App\AI;
 
 use OpenAI\Laravel\Facades\OpenAI;
 
-class Chat {
+class Assistant {
 	protected array $messages = [];
 
 	public function messages() {
