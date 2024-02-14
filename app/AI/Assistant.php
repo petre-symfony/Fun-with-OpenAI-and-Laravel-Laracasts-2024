@@ -52,4 +52,11 @@ class Assistant {
 	public function reply(string $message): ?string {
 		return $this->send($message);
 	}
+
+	public function visualize(string $description): string {
+		return OpenAI::images()->create([
+			'prompt' => $description,
+			'model' => 'dall-e-3'
+		])->data[0]->url;
+	}
 }

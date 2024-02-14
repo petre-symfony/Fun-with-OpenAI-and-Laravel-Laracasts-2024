@@ -1,7 +1,6 @@
 <?php
 
 use App\AI\Assistant;
-use OpenAI\Laravel\Facades\OpenAI;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,10 +24,9 @@ Route::post('/image', function () {
 		'description' => ['required', 'string', 'min:3']
 	]);
 
-	$url = OpenAI::images()->create([
-		'prompt' => $attributes['description'],
-		'model' => 'dall-e-3'
-	])->data[0]->url;
+	$assistant = new Assistant();
+	
+	$url = $assistant->visualize($attributes['description']);
 
 	return redirect('/image')
 		->with([
