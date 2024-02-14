@@ -20,6 +20,10 @@ class Assistant {
 		return $this;
 	}
 
+	public function catchUp(array $messages = []) {
+		$this->messages = $messages;
+	}
+
 	public function send(string $message, bool $speech = false): ?string {
 		$this->addMessage($message);
 

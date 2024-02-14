@@ -26,6 +26,8 @@ Route::post('/image', function () {
 
 	$assistant = new Assistant();
 
+	$assistant->catchUp(session('messages', []));
+
 	$assistant->visualize($attributes['description']);
 
 	session(['messages' => $assistant->messages()]);
