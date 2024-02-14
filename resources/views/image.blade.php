@@ -33,9 +33,11 @@
 
     <div>
       @if (count($messages))
-        @foreach($messages as $message)
-          <p>{{ $message['content'] }}</p>
-        @endforeach
+        <div class="space-y-6">
+          @foreach($messages as $message)
+            <div>{{ $message['content'] }}</div>
+          @endforeach
+        </div>
       @else
         <p>No vizualization yet</p>
       @endif
