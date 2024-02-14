@@ -1,7 +1,7 @@
 <?php
 
 use App\AI\Chat;
-use Illuminate\Http\Request;
+use OpenAI\Laravel\Facades\OpenAI;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,6 +22,13 @@ Route::post('/image', function () {
 	$attributes = request()->validate([
 		'description' => ['required', 'string', 'min:3']
 	]);
+
+	$response = OpenAI::images()->create([
+		'prompt' => $attributes['description'],
+		'model' => 'dall-e-3'
+	]);
+
+	dd($response);
 });
 
 Route::get('/', function () {
