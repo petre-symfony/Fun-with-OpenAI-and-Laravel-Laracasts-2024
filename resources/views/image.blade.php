@@ -32,7 +32,11 @@
     </div>
 
     <div>
-      <p>No vizualization yet</p>
+      @if ($url)
+        <img src="{{ $url }}" alt="">
+      @else
+        <p>No vizualization yet</p>
+      @endif
     </div>
   </div>
 </body>

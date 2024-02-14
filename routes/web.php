@@ -15,7 +15,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::get('/image', function (){
-	return view('image');
+	return view('image', [
+		'url' => session('url')
+	]);
 });
 
 Route::post('/image', function () {
@@ -23,12 +25,15 @@ Route::post('/image', function () {
 		'description' => ['required', 'string', 'min:3']
 	]);
 
-	$response = OpenAI::images()->create([
+	$url = OpenAI::images()->create([
 		'prompt' => $attributes['description'],
 		'model' => 'dall-e-3'
-	]);
+	])->data[0]->url;
 
-	dd($response);
+	return redirect('/image')
+		->with([
+			'url' => $url
+		]);
 });
 
 Route::get('/', function () {
