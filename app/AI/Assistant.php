@@ -65,8 +65,6 @@ class Assistant {
 			->pluck('content')
 			->implode(' ');
 
-		logger($description);
-
 		$options = array_merge([
 			'prompt' => $description,
 			'model' => 'dall-e-3'
