@@ -7,6 +7,10 @@ use OpenAI\Laravel\Facades\OpenAI;
 class Assistant {
 	protected array $messages = [];
 
+	public function __construct(array $messages = []) {
+		$this->messages = $messages;
+	}
+
 	public function messages() {
 		return $this->messages;
 	}
@@ -18,10 +22,6 @@ class Assistant {
 		];
 
 		return $this;
-	}
-
-	public function catchUp(array $messages = []) {
-		$this->messages = $messages;
 	}
 
 	public function send(string $message, bool $speech = false): ?string {

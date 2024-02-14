@@ -24,9 +24,7 @@ Route::post('/image', function () {
 		'description' => ['required', 'string', 'min:3']
 	]);
 
-	$assistant = new Assistant();
-
-	$assistant->catchUp(session('messages', []));
+	$assistant = new Assistant(session('messages', []));
 
 	$assistant->visualize($attributes['description']);
 
