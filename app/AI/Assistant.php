@@ -53,10 +53,12 @@ class Assistant {
 		return $this->send($message);
 	}
 
-	public function visualize(string $description): string {
-		return OpenAI::images()->create([
+	public function visualize(string $description, array $options = []): string {
+		$options = array_merge([
 			'prompt' => $description,
 			'model' => 'dall-e-3'
-		])->data[0]->url;
+		], $options);
+
+		return OpenAI::images()->create($options)->data[0]->url;
 	}
 }

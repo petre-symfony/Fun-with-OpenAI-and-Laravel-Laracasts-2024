@@ -25,7 +25,7 @@ Route::post('/image', function () {
 	]);
 
 	$assistant = new Assistant();
-	
+
 	$url = $assistant->visualize($attributes['description']);
 
 	return redirect('/image')
