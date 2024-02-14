@@ -26,7 +26,8 @@ Route::post('/image', function () {
 
 	$assistant = new Assistant();
 
-	$url = $assistant->visualize($attributes['description']);
+	$assistant->visualize($attributes['description']);
+	$url = $assistant->visualize('He is holding coal in his left hand');
 
 	return redirect('/image')
 		->with([

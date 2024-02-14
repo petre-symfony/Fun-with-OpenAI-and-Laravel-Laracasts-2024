@@ -56,6 +56,13 @@ class Assistant {
 	public function visualize(string $description, array $options = []): string {
 		$this->addMessage($description);
 
+		$description = collect($this->messages)
+			->where('role', 'user')
+			->pluck('content')
+			->implode(' ');
+
+		logger($description);
+
 		$options = array_merge([
 			'prompt' => $description,
 			'model' => 'dall-e-3'
