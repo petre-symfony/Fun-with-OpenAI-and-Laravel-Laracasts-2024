@@ -54,11 +54,23 @@ class Assistant {
 	}
 
 	public function visualize(string $description, array $options = []): string {
+		$this->messages[] = [
+			'role' => 'user',
+			'content' => $description
+		];
+
 		$options = array_merge([
 			'prompt' => $description,
 			'model' => 'dall-e-3'
 		], $options);
 
-		return OpenAI::images()->create($options)->data[0]->url;
+		$url = OpenAI::images()->create($options)->data[0]->url;
+
+		$this->messages[] = [
+			'role' => 'assistant',
+			'content' => $url
+		];
+
+		return $url;
 	}
 }
