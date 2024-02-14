@@ -13,7 +13,7 @@
     <div>
       <h1 class="font-bold mb-4">Generate an Image</h1>
 
-      <form>
+      <form method="POST" action="/image">
         @csrf
 
         <textarea

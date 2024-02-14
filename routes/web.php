@@ -1,6 +1,7 @@
 <?php
 
 use App\AI\Chat;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,6 +16,12 @@ use Illuminate\Support\Facades\Route;
 */
 Route::get('/image', function (){
 	return view('image');
+});
+
+Route::post('/image', function () {
+	$attributes = request()->validate([
+		'description' => ['required', 'string', 'min:3']
+	]);
 });
 
 Route::get('/', function () {
