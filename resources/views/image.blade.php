@@ -33,7 +33,7 @@
 
     <div>
       @if ($url)
-        <img src="{{ $url }}" alt="">
+        <img src="{{ $url }}" alt="" style="max-width: 250px">
       @else
         <p>No vizualization yet</p>
       @endif
