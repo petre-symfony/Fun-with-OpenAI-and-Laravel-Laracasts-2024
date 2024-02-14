@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 Route::get('/image', function (){
 	return view('image', [
-		'url' => session('url')
+		'messages' => session('messages', [])
 	]);
 });
 
@@ -27,12 +27,10 @@ Route::post('/image', function () {
 	$assistant = new Assistant();
 
 	$assistant->visualize($attributes['description']);
-	$url = $assistant->visualize('He is holding coal in his left hand');
 
-	return redirect('/image')
-		->with([
-			'url' => $url
-		]);
+	session(['messages' => $assistant->messages()]);
+
+	return redirect('/image');
 });
 
 Route::get('/', function () {

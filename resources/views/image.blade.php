@@ -32,7 +32,10 @@
     </div>
 
     <div>
-      @if ($url)
+      @if (count($messages))
+        @foreach($messages as $message)
+          <p>{{ $message['content'] }}</p>
+        @endforeach
         <img src="{{ $url }}" alt="" style="max-width: 250px">
       @else
         <p>No vizualization yet</p>
