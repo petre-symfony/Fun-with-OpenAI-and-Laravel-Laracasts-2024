@@ -13,6 +13,14 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::get('/detect_spam', function (){
+	return view('create-reply');
+});
+
+Route::post('/replies', function() {
+	
+});
+
 Route::get('/image', function (){
 	return view('image', [
 		'messages' => session('messages', [])
