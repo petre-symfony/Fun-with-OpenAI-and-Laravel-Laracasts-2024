@@ -39,9 +39,9 @@ Route::post('/replies', function() {
 			],
 		],
 		'response_format' => ['type' => 'json_object']
-	]);
+	])->choices[0]->message->content;
 
-	dd($response);
+	return json_encode($response);
 });
 
 Route::get('/image', function (){
