@@ -41,7 +41,9 @@ Route::post('/replies', function() {
 		'response_format' => ['type' => 'json_object']
 	])->choices[0]->message->content;
 
-	return json_encode($response);
+	$response = json_decode($response);
+
+	return $response->is_spam ? 'THIS IS SPAM!' : 'VALID_POST';
 });
 
 Route::get('/image', function (){
