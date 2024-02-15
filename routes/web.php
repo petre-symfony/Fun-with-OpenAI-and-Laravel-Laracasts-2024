@@ -26,7 +26,7 @@ Route::post('/replies', function() {
 	$response = OpenAI::chat()->create([
 		'model' => 'gpt-3.5-turbo-1106',
 		'messages' => [
-			['role' => 'system', 'content' => 'You are a forum moderator'],
+			['role' => 'system', 'content' => 'You are a forum moderator who always responds using json'],
 			['role' => 'user', 'content' => "Please inspect the following text and determine if it is spam.\n\n" . request('body')]
 		],
 		'response_format' => ['type' => 'json_object']
