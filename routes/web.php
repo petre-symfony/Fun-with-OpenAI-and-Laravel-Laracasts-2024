@@ -19,7 +19,7 @@ Route::get('/detect_spam', function (){
 });
 
 Route::post('/replies', function() {
-	request()->validate([
+	$attributes = request()->validate([
 		'body' => ['required', 'string']
 	]);
 
@@ -27,7 +27,16 @@ Route::post('/replies', function() {
 		'model' => 'gpt-3.5-turbo-1106',
 		'messages' => [
 			['role' => 'system', 'content' => 'You are a forum moderator who always responds using json'],
-			['role' => 'user', 'content' => "Please inspect the following text and determine if it is spam.\n\n" . request('body')]
+			['role' => 'user',
+				'content' => <<<EOT
+					Please inspect the following text and determine if it is spam.
+					
+					{$attributes['body']}
+					
+					Expected response example:
+					{"is_spam": true|false}
+				EOT
+			],
 		],
 		'response_format' => ['type' => 'json_object']
 	]);
