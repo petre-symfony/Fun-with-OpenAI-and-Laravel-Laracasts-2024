@@ -2,6 +2,7 @@
 
 use App\AI\Assistant;
 use Illuminate\Support\Facades\Route;
+use OpenAI\Laravel\Facades\OpenAI;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,7 +19,19 @@ Route::get('/detect_spam', function (){
 });
 
 Route::post('/replies', function() {
-	
+	request()->validate([
+		'body' => ['required', 'string']
+	]);
+
+	$response = OpenAI::chat()->create([
+		'model' => 'gpt-3.5-turbo',
+		'messages' => [
+			['role' => 'system', 'content' => 'You are a forum moderator'],
+			['role' => 'user', 'content' => "Please inspect the following text and determine if it is spam.\n\n" . request('body')]
+		]
+	]);
+
+	dd($response);
 });
 
 Route::get('/image', function (){
