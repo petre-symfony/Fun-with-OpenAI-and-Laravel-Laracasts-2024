@@ -33,6 +33,14 @@
       <button type="submit" class="tex-sm font-semibold leading-6 text-gray-900">Cancel</button>
       <button type="submit" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm">Publish</button>
     </div>
+
+    @if ($errors->any())
+      <ul class="mt-2">
+        @foreach($errors->all() as $error)
+          <li class="text-sm text-red-500">{{ $error }}</li>
+        @endforeach
+      </ul>
+    @endif
   </form>
 </body>
 </html>
