@@ -2,6 +2,7 @@
 
 namespace App\Rules;
 
+use App\AI\Assistant;
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
 use OpenAI\Laravel\Facades\OpenAI;
@@ -13,10 +14,12 @@ class SpamFree implements ValidationRule {
 	 * @param \Closure(string): \Illuminate\Translation\PotentiallyTranslatedString $fail
 	 */
 	public function validate(string $attribute, mixed $value, Closure $fail): void {
+		$assistant = new Assistant();
+
+		$assistant->systemMessage('You are a forum moderator who always responds using json');
+
 		$response = OpenAI::chat()->create([
-			'model' => 'gpt-3.5-turbo-1106',
 			'messages' => [
-				['role' => 'system', 'content' => 'You are a forum moderator who always responds using json'],
 				[
 					'role' => 'user',
 					'content' => <<<EOT
