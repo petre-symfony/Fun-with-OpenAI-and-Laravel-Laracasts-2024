@@ -5,7 +5,6 @@ namespace App\Rules;
 use App\AI\Assistant;
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
-use OpenAI\Laravel\Facades\OpenAI;
 
 class SpamFree implements ValidationRule {
 	/**
@@ -18,22 +17,16 @@ class SpamFree implements ValidationRule {
 
 		$assistant->systemMessage('You are a forum moderator who always responds using json');
 
-		$response = OpenAI::chat()->create([
-			'messages' => [
-				[
-					'role' => 'user',
-					'content' => <<<EOT
-								Please inspect the following text and determine if it is spam.
-								
-								{$value}
-								
-								Expected response example:
-								{"is_spam": true|false}
-							EOT
-				],
-			],
-			'response_format' => ['type' => 'json_object']
-		])->choices[0]->message->content;
+		$prompt = <<<EOT
+				Please inspect the following text and determine if it is spam.
+				
+				{$value}
+				
+				Expected response example:
+				{"is_spam": true|false}
+			EOT;
+
+		$response = $assistant->send($prompt);
 
 		$response = json_decode($response);
 
