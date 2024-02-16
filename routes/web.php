@@ -20,7 +20,7 @@ Route::get('/detect_spam', function (){
 });
 
 Route::post('/replies', function() {
-	$attributes = request()->validate([
+	request()->validate([
 		'body' => [
 			'required',
 			'string',
@@ -34,7 +34,7 @@ Route::post('/replies', function() {
 							'content' => <<<EOT
 								Please inspect the following text and determine if it is spam.
 								
-								{$attributes['body']}
+								{$value}
 								
 								Expected response example:
 								{"is_spam": true|false}
@@ -47,9 +47,7 @@ Route::post('/replies', function() {
 				$response = json_decode($response);
 
 				if ($response->is_spam) {
-					throw ValidationException::withMessages([
-						'body' => 'Spam was detected'
-					]);
+					$fail('Spam was detected');
 				};
 			}
 		]
