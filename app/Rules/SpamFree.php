@@ -13,24 +13,21 @@ class SpamFree implements ValidationRule {
 	 * @param \Closure(string): \Illuminate\Translation\PotentiallyTranslatedString $fail
 	 */
 	public function validate(string $attribute, mixed $value, Closure $fail): void {
-		$assistant = new Assistant();
 
-		$assistant->systemMessage('You are a forum moderator who always responds using json');
+		$response = (new Assistant())
+			->systemMessage('You are a forum moderator who always responds using json')
+			->send(
+				<<<EOT
+					Please inspect the following text and determine if it is spam.
+					
+					{$value}
+					
+					Expected response example:
+					{"is_spam": true|false}
+				EOT
+			);
 
-		$message = <<<EOT
-				Please inspect the following text and determine if it is spam.
-				
-				{$value}
-				
-				Expected response example:
-				{"is_spam": true|false}
-			EOT;
-
-		$response = $assistant->send($message);
-
-		$response = json_decode($response);
-
-		if ($response->is_spam) {
+		if (json_decode($response)->is_spam) {
 			$fail('Spam was detected');
 		};
 	}
