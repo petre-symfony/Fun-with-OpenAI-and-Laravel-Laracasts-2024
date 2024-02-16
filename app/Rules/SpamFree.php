@@ -17,7 +17,7 @@ class SpamFree implements ValidationRule {
 
 		$assistant->systemMessage('You are a forum moderator who always responds using json');
 
-		$prompt = <<<EOT
+		$message = <<<EOT
 				Please inspect the following text and determine if it is spam.
 				
 				{$value}
@@ -26,7 +26,7 @@ class SpamFree implements ValidationRule {
 				{"is_spam": true|false}
 			EOT;
 
-		$response = $assistant->send($prompt);
+		$response = $assistant->send($message);
 
 		$response = json_decode($response);
 
