@@ -15,6 +15,11 @@ use OpenAI\Laravel\Facades\OpenAI;
 |
 */
 Route::get('/assistant', function (){
+	$file = OpenAI::files()->upload([
+		'purpose' => 'assistants',
+		'file' => fopen(storage_path('docs/parsing.md'), 'rb')
+	]);
+
 	OpenAI::assistants()->create([
 		'model' => 'gpt-4-1106-preview',
 		'name' => 'Laraparse Tutor',
@@ -22,7 +27,7 @@ Route::get('/assistant', function (){
 		'tools' => [
 			'type' => 'retrieval'
 		],
-		'file_ids' => []
+		'file_ids' => [ $file->id ]
 	]);
 });
 
