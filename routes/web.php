@@ -18,16 +18,8 @@ Route::get('/assistant', function (){
 	$assistant = new \App\AI\LaraparseAssistant();
 
 	$assistant->educate(storage_path('docs/parsing.md'));
-	
-	$assistant = OpenAI::assistants()->create([
-		'model' => 'gpt-4-1106-preview',
-		'name' => 'Laraparse Tutor',
-		'instructions' => 'You are a helpful programming teacher',
-		'tools' => [
-			['type' => 'retrieval']
-		],
-		'file_ids' => [ $file->id ]
-	]);
+
+	\App\AI\LaraparseAssistant::create();
 
 	$run = OpenAI::threads()->createAndRun([
 		'assistant_id' => $assistant->id,
