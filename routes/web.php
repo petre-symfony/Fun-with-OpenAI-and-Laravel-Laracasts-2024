@@ -39,7 +39,14 @@ Route::get('/assistant', function (){
 		]
 	]);
 
-	dd($run);
+	do {
+		sleep(1);
+		
+		$run = OpenAI::threads()->runs()->retrieve(
+			threadId: $run->threadId,
+			runId: $run->id
+		);
+	} while ($run->status !== 'completed');
 });
 
 Route::get('/detect_spam', function (){
