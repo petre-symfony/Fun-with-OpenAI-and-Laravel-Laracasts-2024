@@ -54,10 +54,19 @@ class LaraparseAssistant {
 	}
 
 	public function send() {
+		$run = OpenAI::threads()->runs()->create($this->threadId, [
+			'assistant_id' => $this->assistant->id
+		]);
 
-	}
+		do {
+			sleep(1);
 
-	public function run() {
-		
+			$run = OpenAI::threads()->runs()->retrieve(
+				threadId: $run->threadId,
+				runId: $run->id
+			);
+		} while ($run->status !== 'completed');
+
+		$messages = OpenAI::threads()->messages()->list($run->threadId);
 	}
 }
