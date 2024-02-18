@@ -20,15 +20,26 @@ Route::get('/assistant', function (){
 		'file' => fopen(storage_path('docs/parsing.md'), 'rb')
 	]);
 
-	OpenAI::assistants()->create([
+	$assistant = OpenAI::assistants()->create([
 		'model' => 'gpt-4-1106-preview',
 		'name' => 'Laraparse Tutor',
 		'instructions' => 'You are a helpful programming teacher',
 		'tools' => [
-			'type' => 'retrieval'
+			['type' => 'retrieval']
 		],
 		'file_ids' => [ $file->id ]
 	]);
+
+	$run = OpenAI::threads()->createAndRun([
+		'assistant_id' => $assistant->id,
+		'thread' => [
+			'messages' => [
+				['role' => 'user', 'content' => 'How do I grab the first paragraph?']
+			]
+		]
+	]);
+
+	dd($run);
 });
 
 Route::get('/detect_spam', function (){
