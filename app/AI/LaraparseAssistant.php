@@ -7,6 +7,7 @@ use OpenAI\Responses\Assistants\AssistantResponse;
 
 class LaraparseAssistant {
 	protected AssistantResponse $assistant;
+	protected string $threadId;
 
 	public function __construct(string $assistantId) {
 		$this->assistant = OpenAI::assistants()->retrieve($assistantId);
@@ -36,8 +37,12 @@ class LaraparseAssistant {
 		return $this;
 	}
 
-	public function createThread() {
-		
+	public function createThread(): static {
+		$thread = OpenAI::threads()->create();
+
+		$this->threadId = $thread->id;
+
+		return $this;
 	}
 
 	public function run() {

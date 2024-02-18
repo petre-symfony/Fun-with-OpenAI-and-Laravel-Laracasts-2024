@@ -17,11 +17,11 @@ use OpenAI\Laravel\Facades\OpenAI;
 Route::get('/assistant', function (){
 	$assistant = new \App\AI\LaraparseAssistant(config('openai.assistant.id'));
 
-	//$assistant->educate(storage_path('docs/parsing.md'));
+	$messages = $assistant->createThread()
+		->write('hello')
+		->write('How to I grab the first paragraph using Laraparse?')
+		->send();
 
-	dd(\App\AI\LaraparseAssistant::create([]));
-
-	/*
 	$run = OpenAI::threads()->createAndRun([
 		'assistant_id' => $assistant->id,
 		'thread' => [
@@ -43,7 +43,6 @@ Route::get('/assistant', function (){
 	$messages = OpenAI::threads()->messages()->list($run->threadId);
 
 	dd($messages);
-	*/
 });
 
 Route::get('/detect_spam', function (){
