@@ -15,12 +15,13 @@ use OpenAI\Laravel\Facades\OpenAI;
 |
 */
 Route::get('/assistant', function (){
-	$assistant = new \App\AI\LaraparseAssistant();
+	//$assistant = new \App\AI\LaraparseAssistant();
 
-	$assistant->educate(storage_path('docs/parsing.md'));
+	//$assistant->educate(storage_path('docs/parsing.md'));
 
-	\App\AI\LaraparseAssistant::create();
+	dd(\App\AI\LaraparseAssistant::create([]));
 
+	/*
 	$run = OpenAI::threads()->createAndRun([
 		'assistant_id' => $assistant->id,
 		'thread' => [
@@ -42,6 +43,7 @@ Route::get('/assistant', function (){
 	$messages = OpenAI::threads()->messages()->list($run->threadId);
 
 	dd($messages);
+	*/
 });
 
 Route::get('/detect_spam', function (){

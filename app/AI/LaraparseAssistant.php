@@ -16,11 +16,15 @@ class LaraparseAssistant {
 		], $config));
 	}
 
-	public function educate(string $file) {
-		return OpenAI::files()->upload([
+	public function educate(string $file, $assistant = null) {
+		$file = OpenAI::files()->upload([
 			'purpose' => 'assistants',
 			'file' => fopen($file, 'rb')
 		]);
+
+		if ($assistant) {
+			OpenAI::assistants()->files()->create($assistant->id, ['file_id' => $file->id]);
+		}
 	}
 
 	public function createThread() {
