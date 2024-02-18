@@ -15,7 +15,7 @@ use OpenAI\Laravel\Facades\OpenAI;
 |
 */
 Route::get('/assistant', function (){
-	//$assistant = new \App\AI\LaraparseAssistant();
+	$assistant = new \App\AI\LaraparseAssistant(config('openai.assistant.id'));
 
 	//$assistant->educate(storage_path('docs/parsing.md'));
 
