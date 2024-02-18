@@ -41,12 +41,16 @@ Route::get('/assistant', function (){
 
 	do {
 		sleep(1);
-		
+
 		$run = OpenAI::threads()->runs()->retrieve(
 			threadId: $run->threadId,
 			runId: $run->id
 		);
 	} while ($run->status !== 'completed');
+
+	$messages = OpenAI::threads()->messages()->list($run->threadId);
+
+	dd($messages);
 });
 
 Route::get('/detect_spam', function (){
