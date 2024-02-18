@@ -3,7 +3,7 @@
 use App\AI\Assistant;
 use App\Rules\SpamFree;
 use Illuminate\Support\Facades\Route;
-
+use OpenAI\Laravel\Facades\OpenAI;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,6 +14,18 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::get('/assistant', function (){
+	OpenAI::assistants()->create([
+		'model' => 'gpt-4-1106-preview',
+		'name' => 'Laraparse Tutor',
+		'instructions' => 'You are a helpful programming teacher',
+		'tools' => [
+			'type' => 'retrieval'
+		],
+		'file_ids' => []
+	]);
+});
+
 Route::get('/detect_spam', function (){
 	return view('create-reply');
 });
