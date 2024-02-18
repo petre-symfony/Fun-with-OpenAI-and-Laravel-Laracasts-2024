@@ -4,6 +4,7 @@ namespace App\AI;
 
 use OpenAI\Laravel\Facades\OpenAI;
 use OpenAI\Responses\Assistants\AssistantResponse;
+use OpenAI\Responses\Threads\Messages\ThreadMessageListResponse;
 
 class LaraparseAssistant {
 	protected AssistantResponse $assistant;
@@ -37,12 +38,16 @@ class LaraparseAssistant {
 		return $this;
 	}
 
-	public function createThread(): static {
-		$thread = OpenAI::threads()->create();
+	public function createThread(array $parameters = []): static {
+		$thread = OpenAI::threads()->create($parameters);
 
 		$this->threadId = $thread->id;
 
 		return $this;
+	}
+
+	public function messages():ThreadMessageListResponse {
+		return OpenAI::threads()->messages()->list($this->threadId);
 	}
 
 	public function write(string $message): static {
@@ -67,6 +72,6 @@ class LaraparseAssistant {
 			);
 		} while ($run->status !== 'completed');
 
-		$messages = OpenAI::threads()->messages()->list($run->threadId);
+		return $this->messages();
 	}
 }
