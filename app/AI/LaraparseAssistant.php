@@ -67,7 +67,7 @@ class LaraparseAssistant {
 			sleep(1);
 
 			$run = OpenAI::threads()->runs()->retrieve(
-				threadId: $run->threadId,
+				threadId: $this->threadId,
 				runId: $run->id
 			);
 		} while ($run->status !== 'completed');

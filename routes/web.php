@@ -1,6 +1,7 @@
 <?php
 
 use App\AI\Assistant;
+use App\AI\LaraparseAssistant;
 use App\Rules\SpamFree;
 use Illuminate\Support\Facades\Route;
 use OpenAI\Laravel\Facades\OpenAI;
@@ -15,32 +16,12 @@ use OpenAI\Laravel\Facades\OpenAI;
 |
 */
 Route::get('/assistant', function (){
-	$assistant = new \App\AI\LaraparseAssistant(config('openai.assistant.id'));
+	$assistant = new LaraparseAssistant(config('openai.assistant.id'));
 
 	$messages = $assistant->createThread()
 		->write('hello')
 		->write('How to I grab the first paragraph using Laraparse?')
 		->send();
-
-	$run = OpenAI::threads()->createAndRun([
-		'assistant_id' => $assistant->id,
-		'thread' => [
-			'messages' => [
-				['role' => 'user', 'content' => 'How do I grab the first paragraph?']
-			]
-		]
-	]);
-
-	do {
-		sleep(1);
-
-		$run = OpenAI::threads()->runs()->retrieve(
-			threadId: $run->threadId,
-			runId: $run->id
-		);
-	} while ($run->status !== 'completed');
-
-	$messages = OpenAI::threads()->messages()->list($run->threadId);
 
 	dd($messages);
 });
