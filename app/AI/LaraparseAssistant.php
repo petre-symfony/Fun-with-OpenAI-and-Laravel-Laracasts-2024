@@ -2,11 +2,8 @@
 
 namespace App\AI;
 
-use OpenAI\Laravel\Facades\OpenAI;
 use OpenAI\Responses\Assistants\AssistantResponse;
 use OpenAI\Responses\Threads\Messages\ThreadMessageListResponse;
-use OpenAI\Responses\Threads\Runs\ThreadRunResponse;
-
 class LaraparseAssistant {
 	/**
 	 * The OpenAI AssistantResponse instance
@@ -16,13 +13,11 @@ class LaraparseAssistant {
 	 * The id of the current thread
 	 */
 	protected string $threadId;
-	protected Client $client;
 
 	/**
 	 * Create a new LaraparseAssistant Instance
 	 */
-	public function __construct(string $assistantId) {
-		$this->client = new Client();
+	public function __construct(string $assistantId, protected Client $client) {
 
 		$this->assistant = $this->client->retrieveAssistant($assistantId);
 	}
