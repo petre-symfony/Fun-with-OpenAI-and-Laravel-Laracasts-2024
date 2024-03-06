@@ -29,8 +29,11 @@ class Client {
 		return OpenAI::threads()->create($parameters);
 	}
 
-	public function createMessage() {
-		
+	public function createMessage(string $message, string $threadId) {
+		OpenAI::threads()->messages()->create($threadId, [
+			'role' => 'user',
+			'content' => $message
+		]);
 	}
 
 	public function messages(string $threadId) {

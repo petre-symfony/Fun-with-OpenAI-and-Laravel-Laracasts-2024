@@ -76,10 +76,8 @@ class LaraparseAssistant {
 	 * Write a new message
 	 */
 	public function write(string $message): static {
-		OpenAI::threads()->messages()->create($this->threadId, [
-			'role' => 'user',
-			'content' => $message
-		]);
+		$this->client->createMessage($message, $this->threadId);
+		
 		return $this;
 	}
 
