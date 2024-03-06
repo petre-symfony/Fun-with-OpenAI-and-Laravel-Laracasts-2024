@@ -33,8 +33,8 @@ class Client {
 		
 	}
 
-	public function messages() {
-		
+	public function messages(string $threadId) {
+		return OpenAI::threads()->messages()->list($threadId);
 	}
 
 	public function run() {

@@ -69,7 +69,7 @@ class LaraparseAssistant {
 	 * Fetch all messaged for the current thread
 	 */
 	public function messages():ThreadMessageListResponse {
-		return OpenAI::threads()->messages()->list($this->threadId);
+		return $this->client->messages($this->threadId);
 	}
 
 	/**
