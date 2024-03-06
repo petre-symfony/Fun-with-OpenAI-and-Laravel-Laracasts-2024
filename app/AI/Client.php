@@ -7,7 +7,7 @@ use OpenAI\Responses\Assistants\AssistantResponse;
 use OpenAI\Responses\Threads\Messages\ThreadMessageListResponse;
 use OpenAI\Responses\Threads\Runs\ThreadRunResponse;
 
-class Client {
+class Client implements ClientInterface {
 	public function retrieveAssistant(string $assistantId) {
 		return OpenAI::assistants()->retrieve($assistantId);
 	}
