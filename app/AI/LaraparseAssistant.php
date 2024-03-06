@@ -58,7 +58,7 @@ class LaraparseAssistant {
 	 * Create a new thread
 	 */
 	public function createThread(array $parameters = []): static {
-		$thread = $this->client->createThread();
+		$thread = $this->client->createThread($parameters);
 
 		$this->threadId = $thread->id;
 
@@ -88,17 +88,4 @@ class LaraparseAssistant {
 		return $this->client->run($this->threadId, $this->assistant);
 	}
 
-	/**
-	 * @param mixed $run
-	 * @return void
-	 */
-	protected function working(ThreadRunResponse $run): bool {
-
-		$run = OpenAI::threads()->runs()->retrieve(
-			threadId: $this->threadId,
-			runId: $run->id
-		);
-
-		return $run->status !== 'completed';
-	}
 }
