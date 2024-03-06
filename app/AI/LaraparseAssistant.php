@@ -17,9 +17,8 @@ class LaraparseAssistant {
 	/**
 	 * Create a new LaraparseAssistant Instance
 	 */
-	public function __construct(string $assistantId, Client $client = null) {
-	  $client ??= new Client();
-		$this->client = $client;
+	public function __construct(string $assistantId, ?Client $client = null) {
+		$this->client = $client ?? new Client();
 
 		$this->assistant = $this->client->retrieveAssistant($assistantId);
 	}
