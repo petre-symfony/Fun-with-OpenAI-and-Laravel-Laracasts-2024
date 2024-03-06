@@ -5,6 +5,7 @@ namespace App\AI;
 use OpenAI\Laravel\Facades\OpenAI;
 use OpenAI\Responses\Assistants\AssistantResponse;
 use OpenAI\Responses\Threads\Messages\ThreadMessageListResponse;
+use OpenAI\Responses\Threads\Runs\ThreadRunResponse;
 
 class LaraparseAssistant {
 	/**
@@ -90,15 +91,24 @@ class LaraparseAssistant {
 			'assistant_id' => $this->assistant->id
 		]);
 
-		do {
+		while ($this->working($run)){
 			sleep(1);
-
-			$run = OpenAI::threads()->runs()->retrieve(
-				threadId: $this->threadId,
-				runId: $run->id
-			);
-		} while ($run->status !== 'completed');
+		};
 
 		return $this->messages();
+	}
+
+	/**
+	 * @param mixed $run
+	 * @return void
+	 */
+	protected function working(ThreadRunResponse $run): bool {
+
+		$run = OpenAI::threads()->runs()->retrieve(
+			threadId: $this->threadId,
+			runId: $run->id
+		);
+
+		return $run->status !== 'completed';
 	}
 }
