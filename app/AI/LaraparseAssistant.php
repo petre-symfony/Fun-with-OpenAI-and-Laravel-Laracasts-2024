@@ -31,7 +31,9 @@ class LaraparseAssistant {
 	 * Create a new OpenAI assistant
 	 */
 	public static function create(array $config = []) {
-		$assistant = OpenAI::assistants()->create(array_merge_recursive([
+		$client = new Client();
+
+		$assistant = $client->createAssistant(array_merge_recursive([
 			'model' => 'gpt-4-1106-preview',
 			'name' => 'Laraparse Tutor',
 			'instructions' => 'You are a helpful programming teacher',

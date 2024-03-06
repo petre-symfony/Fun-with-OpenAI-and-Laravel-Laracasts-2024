@@ -9,8 +9,8 @@ class Client {
 		return OpenAI::assistants()->retrieve($assistantId);
 	}
 
-	public function createAssistant() {
-		
+	public function createAssistant(array $config) {
+		return OpenAI::assistants()->create($config);
 	}
 
 	public function uploadFile() {
