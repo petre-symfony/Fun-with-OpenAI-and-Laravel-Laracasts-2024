@@ -1,6 +1,7 @@
 <?php
 
 use App\AI\Assistant;
+use App\AI\Client;
 use App\AI\LaraparseAssistant;
 use App\Rules\SpamFree;
 use Illuminate\Support\Facades\Route;
@@ -16,7 +17,7 @@ use OpenAI\Laravel\Facades\OpenAI;
 |
 */
 Route::get('/assistant', function (){
-	$assistant = new LaraparseAssistant(config('openai.assistant.id'));
+	$assistant = new LaraparseAssistant(config('openai.assistant.id'), new Client());
 
 	$messages = $assistant->createThread()
 		->write('hello')
