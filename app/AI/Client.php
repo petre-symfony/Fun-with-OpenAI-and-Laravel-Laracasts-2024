@@ -25,8 +25,8 @@ class Client {
 			->create($assistant->id, ['file_id' => $file->id]);
 	}
 
-	public function createThread() {
-		
+	public function createThread(array $parameters = []) {
+		return OpenAI::threads()->create($parameters);
 	}
 
 	public function createMessage() {

@@ -58,7 +58,7 @@ class LaraparseAssistant {
 	 * Create a new thread
 	 */
 	public function createThread(array $parameters = []): static {
-		$thread = OpenAI::threads()->create($parameters);
+		$thread = $this->client->createThread();
 
 		$this->threadId = $thread->id;
 
