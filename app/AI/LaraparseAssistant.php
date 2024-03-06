@@ -49,12 +49,7 @@ class LaraparseAssistant {
 	 * Provide reading material to the assistant
 	 */
 	public function educate(string $file): static {
-		$file = OpenAI::files()->upload([
-			'purpose' => 'assistants',
-			'file' => fopen($file, 'rb')
-		]);
-
-		OpenAI::assistants()->files()->create($this->assistant->id, ['file_id' => $file->id]);
+		$this->client->uploadFile($file, $this->assistant);
 
 		return $this;
 	}
