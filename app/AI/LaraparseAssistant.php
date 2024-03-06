@@ -13,12 +13,12 @@ class LaraparseAssistant {
 	 * The id of the current thread
 	 */
 	protected string $threadId;
-	protected Client $client;
+	protected OpenAIClient $client;
 	/**
 	 * Create a new LaraparseAssistant Instance
 	 */
-	public function __construct(string $assistantId, ?Client $client = null) {
-		$this->client = $client ?? new Client();
+	public function __construct(string $assistantId, ?OpenAIClient $client = null) {
+		$this->client = $client ?? new OpenAIClient();
 
 		$this->assistant = $this->client->retrieveAssistant($assistantId);
 	}
@@ -36,7 +36,7 @@ class LaraparseAssistant {
 			]
 		];
 
-		$assistant = (new Client())->createAssistant(array_merge_recursive($defaultConfig, $config));
+		$assistant = (new OpenAIClient())->createAssistant(array_merge_recursive($defaultConfig, $config));
 
 		return new static($assistant->id);
 	}

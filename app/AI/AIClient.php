@@ -6,7 +6,7 @@ use OpenAI\Responses\Assistants\AssistantResponse;
 use OpenAI\Responses\Threads\Messages\ThreadMessageListResponse;
 use OpenAI\Responses\Threads\Runs\ThreadRunResponse;
 
-interface ClientInterface {
+interface AIClient {
 	public function retrieveAssistant(string $assistantId);
 
 	public function createAssistant(array $config);
