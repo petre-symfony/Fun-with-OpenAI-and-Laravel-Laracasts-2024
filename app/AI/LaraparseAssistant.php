@@ -31,16 +31,16 @@ class LaraparseAssistant {
 	 * Create a new OpenAI assistant
 	 */
 	public static function create(array $config = []) {
-		$client = new Client();
-
-		$assistant = $client->createAssistant(array_merge_recursive([
+		$defaultConfig = [
 			'model' => 'gpt-4-1106-preview',
 			'name' => 'Laraparse Tutor',
 			'instructions' => 'You are a helpful programming teacher',
 			'tools' => [
 				['type' => 'retrieval']
 			]
-		], $config));
+		];
+
+		$assistant = (new Client())->createAssistant(array_merge_recursive($defaultConfig, $config));
 
 		return new static($assistant->id);
 	}
