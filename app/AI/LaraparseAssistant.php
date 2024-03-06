@@ -13,11 +13,13 @@ class LaraparseAssistant {
 	 * The id of the current thread
 	 */
 	protected string $threadId;
-
+	protected Client $client;
 	/**
 	 * Create a new LaraparseAssistant Instance
 	 */
-	public function __construct(string $assistantId, protected Client $client) {
+	public function __construct(string $assistantId, Client $client = null) {
+	  $client ??= new Client();
+		$this->client = $client;
 
 		$this->assistant = $this->client->retrieveAssistant($assistantId);
 	}
