@@ -4,6 +4,8 @@ namespace App\AI;
 
 use OpenAI\Laravel\Facades\OpenAI;
 use OpenAI\Responses\Assistants\AssistantResponse;
+use OpenAI\Responses\Threads\Messages\ThreadMessageListResponse;
+use OpenAI\Responses\Threads\Runs\ThreadRunResponse;
 
 class Client {
 	public function retrieveAssistant(string $assistantId) {
@@ -40,11 +42,24 @@ class Client {
 		return OpenAI::threads()->messages()->list($threadId);
 	}
 
-	public function run() {
-		
+	public function run(string $threadId, AssistantResponse $assistant): ThreadMessageListResponse {
+		$run = OpenAI::threads()->runs()->create($threadId, [
+			'assistant_id' => $assistant->id
+		]);
+
+		while ($this->runStatus($run)){
+			sleep(1);
+		};
+
+		return $this->messages($threadId);
 	}
 
-	public function runStatus() {
-		
+	public function runStatus(ThreadRunResponse $run): bool {
+		$run = OpenAI::threads()->runs()->retrieve(
+			threadId: $run->threadId,
+			runId: $run->id
+		);
+
+		return $run->status !== 'completed';
 	}
 }

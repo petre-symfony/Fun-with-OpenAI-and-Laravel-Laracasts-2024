@@ -85,15 +85,7 @@ class LaraparseAssistant {
 	 * Send all the messages to the assistant and await a respond
 	 */
 	public function send() {
-		$run = OpenAI::threads()->runs()->create($this->threadId, [
-			'assistant_id' => $this->assistant->id
-		]);
-
-		while ($this->working($run)){
-			sleep(1);
-		};
-
-		return $this->messages();
+		return $this->client->run($this->threadId, $this->assistant);
 	}
 
 	/**
