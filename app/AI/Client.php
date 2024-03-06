@@ -2,9 +2,11 @@
 
 namespace App\AI;
 
+use OpenAI\Laravel\Facades\OpenAI;
+
 class Client {
-	public function retrieveAssistant() {
-		
+	public function retrieveAssistant(string $assistantId) {
+		return OpenAI::assistants()->retrieve($assistantId);
 	}
 
 	public function createAssistant() {

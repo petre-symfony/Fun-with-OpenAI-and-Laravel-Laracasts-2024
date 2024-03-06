@@ -16,12 +16,15 @@ class LaraparseAssistant {
 	 * The id of the current thread
 	 */
 	protected string $threadId;
+	protected Client $client;
 
 	/**
 	 * Create a new LaraparseAssistant Instance
 	 */
 	public function __construct(string $assistantId) {
-		$this->assistant = OpenAI::assistants()->retrieve($assistantId);
+		$this->client = new Client();
+
+		$this->assistant = $this->client->retrieveAssistant($assistantId);
 	}
 
 	/**
